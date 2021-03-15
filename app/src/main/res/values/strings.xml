@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">U Cast</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="list_customer">List Customer</string>
+    <string name="chose_all">Chose All</string>
+    <string name="fahmi">Fahmi Abdul Aziz</string>
+    <string name="no_hp">082384863761</string>
 </resources>

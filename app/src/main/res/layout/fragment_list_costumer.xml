@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.Customers.ListCostumerFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_customer"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            style="@style/TextView.poppinsboldBlue1_18sp"></TextView>
+        <CheckBox
+            android:id="@+id/chkChoseAll"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"></CheckBox>
+        <TextView
+            android:layout_toLeftOf="@id/chkChoseAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chose_all"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            style="@style/TextView.poppinsnormalBlue1_14sp"></TextView>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_customers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/item_customers"></androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>
