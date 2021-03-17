@@ -22,4 +22,12 @@
     <string name="success">Success</string>
     <string name="schedule_dibuat">Schedule Telah Terbuat</string>
     <string name="kirim_lagi">Kirim Lagi</string>
+    <string name="details">Details</string>
+    <string name="terkirim">Terkirim</string>
+    <string name="penerima_cast">Penerima Cast</string>
+    <string name="ketik_disini">Ketik Disini</string>
+    <string name="title_cast">Title Cast</string>
+    <string name="isi_cast">Isi Cast</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
 </resources>

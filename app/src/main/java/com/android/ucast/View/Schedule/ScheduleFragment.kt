@@ -14,8 +14,13 @@ import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
 import com.android.ucast.Model.DataItem
 import com.android.ucast.R
 import com.android.ucast.ViewModel.ViewModelUCase
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.activity_details_customer.*
 import kotlinx.android.synthetic.main.fragment_schedule.*
+import kotlinx.android.synthetic.main.layout_sheet_customers.*
+import kotlinx.android.synthetic.main.layout_sheet_schedule.*
+import kotlinx.android.synthetic.main.layout_sheet_schedule.bottomsheett
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +31,8 @@ class ScheduleFragment : DaggerFragment() {
     lateinit var providerFactory: ViewModelProviderFactory
     private var adapter: DataAdapter? = null
     lateinit var viewModel: ViewModelUCase
+
+    lateinit var sheetBehavior: BottomSheetBehavior<*>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +45,17 @@ class ScheduleFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        sheetBehavior = BottomSheetBehavior.from(bottomsheett)
+        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         viewModel =
             ViewModelProviders.of(this, providerFactory).get(ViewModelUCase::class.java)
         adapter = DataAdapter(object : DataAdapter.onClickListener {
             override fun details(getItem: DataItem?) {
-                Toast.makeText(activity, getItem?.firstName, Toast.LENGTH_SHORT).show()
+                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                edtPenerimaCast.setText(getItem?.firstName)
+                edtTitleCast.setText(getItem?.lastName)
+                edtIsiCast.setText(getItem?.position)
             }
 
         })
