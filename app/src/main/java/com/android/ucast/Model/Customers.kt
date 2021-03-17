@@ -1,8 +1,12 @@
 package com.android.ucast.Model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Customers(
-    val gambar : Int,
-    val nama:String,
-    val noHp:String,
+    var gambar : Int,
+    var nama:String,
+    var noHp:String,
     var value:Int?=0
-)
+):Parcelable

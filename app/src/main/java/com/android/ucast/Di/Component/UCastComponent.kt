@@ -3,6 +3,7 @@ package com.android.ucast.Di.Component
 import android.app.Application
 import com.android.ucast.Di.Builder.ActivityBuilder
 import com.android.ucast.Di.Module.UCastModule
+import com.android.ucast.Di.Module.ViewModelProviderFactoryModule
 import com.android.ucast.Di.UCastApp
 import com.android.ucast.Network.ConfigNetwork
 import dagger.BindsInstance
@@ -17,7 +18,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ActivityBuilder::class,
         UCastModule::class,
-        ConfigNetwork::class
+        ConfigNetwork::class,
+        ViewModelProviderFactoryModule::class,
     ]
 )
 interface UCastComponent : AndroidInjector<UCastApp> {

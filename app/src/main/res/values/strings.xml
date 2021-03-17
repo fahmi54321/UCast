@@ -6,4 +6,20 @@
     <string name="chose_all">Chose All</string>
     <string name="fahmi">Fahmi Abdul Aziz</string>
     <string name="no_hp">082384863761</string>
+    <string name="detail_costumers">Details Costumer</string>
+    <string name="send">Send</string>
+    <string name="schedule">Schedule</string>
+    <string name="messages">Messages</string>
+    <string name="read_more">Read More</string>
+    <string name="add_messages">Tambah Pesan</string>
+    <string name="buat">Buat</string>
+    <string name="subjek">Subjek</string>
+    <string name="tulis_pesan">Tulis Pesan</string>
+    <string name="everyday">Setiap Hari (08.00 WIB)</string>
+    <string name="custom">Custom</string>
+    <string name="atur_tgl">Atur Tanggal</string>
+    <string name="pilih_schedule">Pilih Schedule</string>
+    <string name="success">Success</string>
+    <string name="schedule_dibuat">Schedule Telah Terbuat</string>
+    <string name="kirim_lagi">Kirim Lagi</string>
 </resources>

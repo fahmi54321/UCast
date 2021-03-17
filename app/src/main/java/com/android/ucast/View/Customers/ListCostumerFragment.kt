@@ -1,5 +1,6 @@
 package com.android.ucast.View.Customers
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +13,6 @@ import com.android.ucast.Model.Customers
 import com.android.ucast.R
 
 class ListCostumerFragment : Fragment() {
-
-    private var data: Customers? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +41,9 @@ class ListCostumerFragment : Fragment() {
                 }
 
                 override fun details(item: Customers) {
-                    TODO("Not yet implemented")
+                    val intent = Intent(activity,DetailsCustomerActivity::class.java)
+                    intent.putExtra("data",item)
+                    startActivity(intent)
                 }
 
             })

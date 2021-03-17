@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bottomsheett"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="60dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txtAddMessages"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:background="@color/white"
+            android:text="@string/pilih_schedule"
+            style="@style/TextView.poppinsboldBlack_18sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/rbEveryDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/everyday"
+                    android:background="@drawable/bg_item_list_customers"></RadioButton>
+                <RadioButton
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/everyday"
+                    android:background="@drawable/bg_item_list_customers"></RadioButton>
+                <RadioButton
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/everyday"
+                    android:background="@drawable/bg_item_list_customers"></RadioButton>
+                <RadioButton
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="@string/everyday"
+                    android:background="@drawable/bg_item_list_customers"></RadioButton>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/custom"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    style="@style/TextView.poppinsboldBlack_18sp"/>
+
+
+            </RadioGroup>
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_item_list_customers"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/txtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    style="@style/TextView.poppinsnormalBlack_14sp"
+                    android:text="@string/atur_tgl" />
+
+                <ImageView
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/imgDate"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    app:srcCompat="@drawable/date" />
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSend"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                style="@style/Button.primary"
+                android:background="@drawable/btn_send"
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:text="@string/buat" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
