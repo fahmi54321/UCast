@@ -9,13 +9,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.ucast.Model.DataItem
 import com.android.ucast.R
+import com.android.ucast.databinding.ItemScheduleBinding
 
 class DataAdapter(
     var onClick: onClickListener
 ) : PagingDataAdapter<DataItem, DataAdapter.DataViewHolder>(playerDiffUtil()) {
-    class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var judul = itemView.findViewById<TextView>(R.id.txtJudul)
-        var isiPesan = itemView.findViewById<TextView>(R.id.txtIsiPesan)
+    class DataViewHolder(var binding: ItemScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(getItem: DataItem?) {
+            binding.txtJudul.text = getItem?.firstName
+            binding.txtIsiPesan.text = getItem?.lastName
+        }
 
     }
 
@@ -32,8 +35,7 @@ class DataAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         var data = getItem(position)
-        holder.judul.text = data?.firstName
-        holder.isiPesan.text = data?.lastName
+        holder.bind(data)
         holder.itemView.setOnClickListener {
             onClick.details(data)
         }
@@ -41,7 +43,7 @@ class DataAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         var view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_schedule, parent, false)
+            ItemScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DataViewHolder(view)
     }
 

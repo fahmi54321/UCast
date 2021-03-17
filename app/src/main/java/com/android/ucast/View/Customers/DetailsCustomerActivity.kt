@@ -4,14 +4,15 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.android.ucast.Model.Customers
 import com.android.ucast.R
+import com.android.ucast.databinding.ActivityDetailsCustomerBinding
+import com.android.ucast.databinding.LayoutSheetCustomersBinding
+import com.android.ucast.databinding.LayoutSheetSuccessSendScheduleBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_details_customer.*
 import kotlinx.android.synthetic.main.layout_sheet_customers.*
 import kotlinx.android.synthetic.main.layout_sheet_success_send_schedule.*
 import java.text.SimpleDateFormat
@@ -26,6 +27,8 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
         "Pesan 4", "Pesan 5", "Pesan 6", "Pesan 7"
     )
 
+    lateinit var binding: ActivityDetailsCustomerBinding
+
     @Inject
     lateinit var dateFormatter: SimpleDateFormat
 
@@ -36,18 +39,19 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details_customer)
+        binding = ActivityDetailsCustomerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         sheetBehavior = BottomSheetBehavior.from(bottomsheett)
         sheetBehaviorSuccess = BottomSheetBehavior.from(bottomsheettSuccess)
         sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         sheetBehaviorSuccess.state = BottomSheetBehavior.STATE_HIDDEN
 
-        btnSchedule.setOnClickListener {
+        binding.btnSchedule.setOnClickListener {
             sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        btnSendSchedule.setOnClickListener {
+        binding.btnSendSchedule.setOnClickListener {
             sheetBehaviorSuccess.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
@@ -55,16 +59,16 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
         Glide.with(this)
             .load(getData?.gambar)
             .apply(RequestOptions().error(R.drawable.icon_nopic))
-            .into(imgGambar)
+            .into(binding.imgGambar)
 
-        txtNama.text = getData?.nama
-        txtNoHp.text = getData?.noHp
+        binding.txtNama.text = getData?.nama
+        binding.txtNoHp.text = getData?.noHp
 
 
         val messageSpinner: ArrayAdapter<*> =
             ArrayAdapter<Any?>(this, android.R.layout.simple_spinner_item, message)
         messageSpinner.setDropDownViewResource(R.layout.custom_spinner)
-        spinner.adapter = messageSpinner
+        binding.spinner.adapter = messageSpinner
 
         imgDate.setOnClickListener {
             showDate()

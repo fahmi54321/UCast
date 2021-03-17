@@ -9,13 +9,14 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.ucast.R
+import com.android.ucast.databinding.ItemLoadingBinding
 
 class DataLoadStateAdapter(val retry: () -> Unit) :
     LoadStateAdapter<DataLoadStateAdapter.DataLoadStataeAdaperViewHolder>() {
-    class DataLoadStataeAdaperViewHolder(var itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class DataLoadStataeAdaperViewHolder(var binding: ItemLoadingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(loadState: LoadState) {
-            var progress = itemView.findViewById<ProgressBar>(R.id.progressBar)
-            progress.isVisible = loadState is LoadState.Loading
+            binding.progressBar.isVisible = loadState is LoadState.Loading
         }
     }
 
@@ -27,8 +28,7 @@ class DataLoadStateAdapter(val retry: () -> Unit) :
         parent: ViewGroup,
         loadState: LoadState
     ): DataLoadStataeAdaperViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.item_loading, parent, false)
-
+        var view = ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DataLoadStataeAdaperViewHolder(view)
     }
 }

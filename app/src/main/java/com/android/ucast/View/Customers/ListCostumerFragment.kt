@@ -11,15 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.ucast.Adapter.ListCustomersAdapter
 import com.android.ucast.Model.Customers
 import com.android.ucast.R
+import com.android.ucast.databinding.FragmentListCostumerBinding
 
 class ListCostumerFragment : Fragment() {
+
+    lateinit var binding : FragmentListCostumerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_costumer, container, false)
+        binding = FragmentListCostumerBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -47,8 +51,7 @@ class ListCostumerFragment : Fragment() {
                 }
 
             })
-        var rv_customers = view?.findViewById<RecyclerView>(R.id.rv_customers)
-        rv_customers?.apply {
+        binding.rvCustomers?.apply {
             layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL, false

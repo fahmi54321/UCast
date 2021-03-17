@@ -14,13 +14,11 @@ import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
 import com.android.ucast.Model.DataItem
 import com.android.ucast.R
 import com.android.ucast.ViewModel.ViewModelUCase
+import com.android.ucast.databinding.FragmentScheduleBinding
+import com.android.ucast.databinding.LayoutSheetScheduleBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_details_customer.*
-import kotlinx.android.synthetic.main.fragment_schedule.*
-import kotlinx.android.synthetic.main.layout_sheet_customers.*
 import kotlinx.android.synthetic.main.layout_sheet_schedule.*
-import kotlinx.android.synthetic.main.layout_sheet_schedule.bottomsheett
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,6 +30,8 @@ class ScheduleFragment : DaggerFragment() {
     private var adapter: DataAdapter? = null
     lateinit var viewModel: ViewModelUCase
 
+    lateinit var binding : FragmentScheduleBinding
+
     lateinit var sheetBehavior: BottomSheetBehavior<*>
 
     override fun onCreateView(
@@ -39,7 +39,8 @@ class ScheduleFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false)
+        binding = FragmentScheduleBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,7 +68,7 @@ class ScheduleFragment : DaggerFragment() {
     }
 
     private fun setupAdapter() {
-        rv_schedule.adapter = adapter?.withLoadStateFooter(
+        binding.rvSchedule.adapter = adapter?.withLoadStateFooter(
             footer = DataLoadStateAdapter() {
                 retry()
             }

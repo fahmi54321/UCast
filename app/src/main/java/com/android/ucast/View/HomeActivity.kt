@@ -9,50 +9,53 @@ import com.android.ucast.View.Customers.ListCostumerFragment
 import com.android.ucast.View.Messages.MessageFragment
 import com.android.ucast.View.Profile.ProfileFragment
 import com.android.ucast.View.Schedule.ScheduleFragment
-import kotlinx.android.synthetic.main.activity_home.*
+import com.android.ucast.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
 
+    lateinit var binding : ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val listCostumer = ListCostumerFragment()
         setFragment(listCostumer)
 
-        imgList.setOnClickListener {
+        binding.imgList.setOnClickListener {
             val listCostumer = ListCostumerFragment()
             setFragment(listCostumer)
-            changeIcon(imgList, R.drawable.list_active)
-            changeIcon(imgMessage, R.drawable.message_in_active)
-            changeIcon(imgSchedulers, R.drawable.schedule_in_active)
-            changeIcon(imgProfile, R.drawable.profile_in_active)
+            changeIcon(binding.imgList, R.drawable.list_active)
+            changeIcon(binding.imgMessage, R.drawable.message_in_active)
+            changeIcon(binding.imgSchedulers, R.drawable.schedule_in_active)
+            changeIcon(binding.imgProfile, R.drawable.profile_in_active)
         }
 
-        imgMessage.setOnClickListener {
+        binding.imgMessage.setOnClickListener {
             val message = MessageFragment()
             setFragment(message)
-            changeIcon(imgList, R.drawable.list_in_active)
-            changeIcon(imgMessage, R.drawable.message_active)
-            changeIcon(imgSchedulers, R.drawable.schedule_in_active)
-            changeIcon(imgProfile, R.drawable.profile_in_active)
+            changeIcon(binding.imgList, R.drawable.list_in_active)
+            changeIcon(binding.imgMessage, R.drawable.message_active)
+            changeIcon(binding.imgSchedulers, R.drawable.schedule_in_active)
+            changeIcon(binding.imgProfile, R.drawable.profile_in_active)
         }
 
-        imgSchedulers.setOnClickListener {
+        binding.imgSchedulers.setOnClickListener {
             val scheduler = ScheduleFragment()
             setFragment(scheduler)
-            changeIcon(imgList, R.drawable.list_in_active)
-            changeIcon(imgMessage, R.drawable.message_in_active)
-            changeIcon(imgSchedulers, R.drawable.schedule_active)
-            changeIcon(imgProfile, R.drawable.profile_in_active)
+            changeIcon(binding.imgList, R.drawable.list_in_active)
+            changeIcon(binding.imgMessage, R.drawable.message_in_active)
+            changeIcon(binding.imgSchedulers, R.drawable.schedule_active)
+            changeIcon(binding.imgProfile, R.drawable.profile_in_active)
         }
-        imgProfile.setOnClickListener {
+        binding.imgProfile.setOnClickListener {
             val profile = ProfileFragment()
             setFragment(profile)
-            changeIcon(imgList, R.drawable.list_in_active)
-            changeIcon(imgMessage, R.drawable.message_in_active)
-            changeIcon(imgSchedulers, R.drawable.schedule_in_active)
-            changeIcon(imgProfile, R.drawable.profile_active)
+            changeIcon(binding.imgList, R.drawable.list_in_active)
+            changeIcon(binding.imgMessage, R.drawable.message_in_active)
+            changeIcon(binding.imgSchedulers, R.drawable.schedule_in_active)
+            changeIcon(binding.imgProfile, R.drawable.profile_active)
         }
     }
 
