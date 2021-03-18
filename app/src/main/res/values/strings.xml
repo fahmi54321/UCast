@@ -30,4 +30,21 @@
     <string name="isi_cast">Isi Cast</string>
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
+
+
+    <string name="u_cast">U CAST</string>
+    <string name="lewati">Lewati</string>
+    <string name="lanjut">Lanjut</string>
+    <string name="pesan">Mengirim Pesan Lebih Cepat</string>
+    <string name="loremipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hanya_dengan_beberapa_kali_klik">Hanya Dengan Beberapa Kali Klik</string>
+    <string name="mempercepat_pekerjaan_anda">Mempercepat Pekerjaan Anda</string>
+    <string name="hai_saudaraku_apa_kabarmu_hari_ini">Hai Saudaraku Apa Kabarmu Hari Ini?</string>
+    <string name="nama_pengguna_atau_alamat_email">Nama Pengguna atau Alamat Email</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="lupa_password">Lupa Password</string>
+    <string name="masuk">Masuk</string>
+    <string name="belum_punya">Belum Punya Akun?<font color="#ffff0000">, Daftar Disini</font></string>
+    <string name="atau">Atau</string>
 </resources>
