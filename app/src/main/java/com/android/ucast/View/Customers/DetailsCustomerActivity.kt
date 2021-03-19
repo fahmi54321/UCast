@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import com.android.ucast.Model.Customers
+import com.android.ucast.Adapter.Customers.ListItemCustomersAdapter
+import com.android.ucast.Model.Customers.DataItem
+import com.android.ucast.Model.Customerss
 import com.android.ucast.R
 import com.android.ucast.databinding.ActivityDetailsCustomerBinding
-import com.android.ucast.databinding.LayoutSheetCustomersBinding
-import com.android.ucast.databinding.LayoutSheetSuccessSendScheduleBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -28,6 +28,7 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
     )
 
     lateinit var binding: ActivityDetailsCustomerBinding
+    private var item: ArrayList<DataItem> = ArrayList()
 
     @Inject
     lateinit var dateFormatter: SimpleDateFormat
@@ -55,14 +56,10 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
             sheetBehaviorSuccess.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        val getData = intent.getParcelableExtra<Customers>("data")
-        Glide.with(this)
-            .load(getData?.gambar)
-            .apply(RequestOptions().error(R.drawable.icon_nopic))
-            .into(binding.imgGambar)
+        item = intent.getParcelableArrayListExtra<DataItem>("data") as ArrayList<DataItem>
 
-        binding.txtNama.text = getData?.nama
-        binding.txtNoHp.text = getData?.noHp
+        var listItemCustomersAdapter = ListItemCustomersAdapter(item)
+        binding.rvItemCustomers.adapter = listItemCustomersAdapter
 
 
         val messageSpinner: ArrayAdapter<*> =

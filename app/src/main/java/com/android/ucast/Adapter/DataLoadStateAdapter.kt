@@ -1,14 +1,11 @@
-package com.android.ucast.Adapter.Schedule
+package com.android.ucast.Adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.ucast.R
 import com.android.ucast.databinding.ItemLoadingBinding
 
 class DataLoadStateAdapter(val retry: () -> Unit) :

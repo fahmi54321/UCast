@@ -40,7 +40,7 @@ class ConfigNetwork {
 
         return Retrofit.Builder().apply {
             client(client)
-            baseUrl(constants.URL)
+            baseUrl(constants.URL_UCAST)
             addConverterFactory(GsonConverterFactory.create())
         }.build()
     }

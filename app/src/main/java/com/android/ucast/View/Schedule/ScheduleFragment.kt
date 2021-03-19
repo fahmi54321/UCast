@@ -1,21 +1,17 @@
 package com.android.ucast.View.Schedule
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.android.ucast.Adapter.Schedule.DataAdapter
-import com.android.ucast.Adapter.Schedule.DataLoadStateAdapter
+import com.android.ucast.Adapter.DataLoadStateAdapter
 import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
 import com.android.ucast.Model.DataItem
-import com.android.ucast.R
 import com.android.ucast.ViewModel.ViewModelUCase
 import com.android.ucast.databinding.FragmentScheduleBinding
-import com.android.ucast.databinding.LayoutSheetScheduleBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.layout_sheet_schedule.*

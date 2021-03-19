@@ -2,61 +2,95 @@ package com.android.ucast.View.Customers
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.android.ucast.Adapter.ListCustomersAdapter
-import com.android.ucast.Model.Customers
-import com.android.ucast.R
+import com.android.ucast.Adapter.Customers.ListCustomersAdapter
+import com.android.ucast.Adapter.DataLoadStateAdapter
+import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
+import com.android.ucast.Model.Customers.DataItem
+import com.android.ucast.ViewModel.ViewModelUCase
 import com.android.ucast.databinding.FragmentListCostumerBinding
+import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListCostumerFragment : Fragment() {
+class ListCostumerFragment : DaggerFragment() {
 
-    lateinit var binding : FragmentListCostumerBinding
+    lateinit var binding: FragmentListCostumerBinding
+    private var item: ArrayList<DataItem?> = ArrayList()
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+    private var adapter: com.android.ucast.Adapter.Customers.ListCustomersAdapter? = null
+    lateinit var viewModel: ViewModelUCase
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentListCostumerBinding.inflate(inflater,container,false)
+        binding = FragmentListCostumerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val listCustomer = listOf(
-            Customers(R.drawable.fahmi, "Fahmi", "082384863761", 0),
-            Customers(R.drawable.yandi, "Yandi", "082384863761", 0),
-            Customers(R.drawable.karate, "Karate", "082384863761", 0),
-            Customers(R.drawable.kakashi, "Kakashi", "082384863761", 0),
-            Customers(R.drawable.fauzi, "Fauzi", "082384863761", 0),
-            Customers(R.drawable.johan, "Johan", "082384863761", 0),
+        viewModel = ViewModelProvider(this, providerFactory).get(ViewModelUCase::class.java)
+
+        adapter = ListCustomersAdapter(object : ListCustomersAdapter.onCliclistener {
+            override fun add(data: DataItem?, holder: ListCustomersAdapter.CustomersViewHolder) {
+                when(holder.binding.chkChose.isChecked){
+                    true -> item.add(data)
+                    false -> item.remove(data)
+                }
+            }
+
+            override fun data(data: ArrayList<DataItem?>) {
+                val intent = Intent(activity,DetailsCustomerActivity::class.java)
+                intent.putParcelableArrayListExtra("data",item)
+                startActivity(intent)
+            }
+
+
+        })
+
+        binding.chkChoseAll.setOnClickListener {
+            val intent = Intent(activity,DetailsCustomerActivity::class.java)
+            intent.putParcelableArrayListExtra("data",item)
+            startActivity(intent)
+        }
+        viewModel?.setDataCustomers()
+
+        setupAdapter()
+        startJob()
+    }
+
+    private fun setupAdapter() {
+        binding?.rvCustomers?.apply {
+            layoutManager = LinearLayoutManager(activity)
+        }
+        binding?.rvCustomers?.adapter = adapter?.withLoadStateFooter(
+                footer = DataLoadStateAdapter() {
+                    retry()
+                }
         )
+    }
 
-        var customerAdapter =
-            ListCustomersAdapter(listCustomer, object : ListCustomersAdapter.onClickListener {
-                override fun check(item: Customers) {
-                    TODO("Not yet implemented")
-                }
+    private fun retry() {
+        adapter?.retry()
+    }
 
-                override fun details(item: Customers) {
-                    val intent = Intent(activity,DetailsCustomerActivity::class.java)
-                    intent.putExtra("data",item)
-                    startActivity(intent)
-                }
-
-            })
-        binding.rvCustomers?.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL, false
-            )
-            adapter = customerAdapter
+    private fun startJob() {
+        lifecycleScope.launch {
+            viewModel?.getDataCustomers()?.collectLatest {
+                adapter?.submitData(it)
+            }
         }
     }
 }

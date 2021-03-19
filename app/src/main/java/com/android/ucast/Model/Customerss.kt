@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Customers(
+data class Customerss(
     var gambar : Int,
     var nama:String,
     var noHp:String,
