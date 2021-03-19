@@ -17,14 +17,14 @@
             style="@style/TextView.poppinsboldBlack_18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TITLE" />
 
         <TextView
             android:id="@+id/txtIsiPesan"
             style="@style/TextView.poppinslightBlack_10sp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="TextView" />
+            android:text="Content" />
 
         <TextView
             android:id="@+id/txtReadMore"

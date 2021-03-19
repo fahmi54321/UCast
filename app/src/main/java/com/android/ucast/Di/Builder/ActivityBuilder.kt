@@ -6,6 +6,7 @@ import com.android.ucast.Di.Module.ViewModelProviderFactoryModule
 import com.android.ucast.Di.Scope.Presentation
 import com.android.ucast.Repository.Repository
 import com.android.ucast.View.Customers.DetailsCustomerActivity
+import com.android.ucast.View.Messages.MessageFragment
 import com.android.ucast.View.Schedule.ScheduleFragment
 import com.android.ucast.View.loginpage.LoginActivity
 import dagger.Module
@@ -38,6 +39,15 @@ abstract class ActivityBuilder {
         ]
     )
     abstract fun contributeLogin(): LoginActivity
+
+    @Presentation
+    @ContributesAndroidInjector(
+            modules = [
+                ViewModelProviderFactoryModule::class
+            ]
+    )
+    abstract fun contributeMessage(): MessageFragment
+
 
 
 }
