@@ -26,7 +26,8 @@
             app:cardBackgroundColor="@color/grey1"></androidx.cardview.widget.CardView>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/constraintHeader">
 
             <TextView
                 android:id="@+id/textView8"
@@ -85,6 +86,7 @@
             android:layout_margin="20dp">
 
             <LinearLayout
+                android:id="@+id/linearPenerimaCost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -104,6 +106,7 @@
                     style="@style/Edittext.primary"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/linearTitleCost"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +127,7 @@
                     style="@style/Edittext.primary"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/linearIsiCost"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,8 +148,8 @@
                     android:hint="@string/ketik_disini"
                     style="@style/Edittext.primary"/>
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/linearButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
