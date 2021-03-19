@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageView
 import com.android.ucast.Adapter.Customers.ListItemCustomersAdapter
 import com.android.ucast.Model.Customers.DataItem
 import com.android.ucast.Model.Customerss
@@ -35,10 +37,10 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
     private var item: ArrayList<DataItem> = ArrayList()
 
     // deklarasi animasi
-    lateinit var top_to_bottom : Animation
-    lateinit var bottom_to_top : Animation
-    lateinit var left_to_right : Animation
-    lateinit var right_to_left : Animation
+    lateinit var top_to_bottom: Animation
+    lateinit var bottom_to_top: Animation
+    lateinit var left_to_right: Animation
+    lateinit var right_to_left: Animation
 
     @Inject
     lateinit var dateFormatter: SimpleDateFormat
@@ -72,7 +74,7 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
 
     private fun showSpinner() {
         val messageSpinner: ArrayAdapter<*> =
-                ArrayAdapter<Any?>(this, android.R.layout.simple_spinner_item, message)
+            ArrayAdapter<Any?>(this, android.R.layout.simple_spinner_item, message)
         messageSpinner.setDropDownViewResource(R.layout.custom_spinner)
         binding.spinner.adapter = messageSpinner
     }
@@ -95,7 +97,7 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
         }
 
         binding.imageViewBack.setOnClickListener {
-            val intent = Intent(this,HomeActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 
@@ -110,6 +112,38 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
 
         imgDate.setOnClickListener {
             showDate()
+        }
+    }
+
+    private fun cekButtonTxtDate() {
+        when (txtDate.text) {
+            "Atur Tanggal" -> {
+                changeButton(btnBuat, R.drawable.btn_send)
+                btnBuat.isEnabled = false
+            }
+            else -> {
+                changeButton(btnBuat, R.drawable.btn_schedule)
+                btnBuat.isEnabled = true
+            }
+        }
+    }
+
+    private fun cekButtonCheckbox() {
+        if (!rbEveryDay.isChecked) {
+            changeButton(btnBuat, R.drawable.btn_send)
+            btnBuat.isEnabled = false
+        } else if (!rbEveryWeek.isChecked) {
+            changeButton(btnBuat, R.drawable.btn_send)
+            btnBuat.isEnabled = false
+        } else if (!rbEveryMonth.isChecked) {
+            changeButton(btnBuat, R.drawable.btn_send)
+            btnBuat.isEnabled = false
+        } else if (!rbEveryYear.isChecked) {
+            changeButton(btnBuat, R.drawable.btn_send)
+            btnBuat.isEnabled = false
+        } else {
+            changeButton(btnBuat, R.drawable.btn_schedule)
+            btnBuat.isEnabled = true
         }
     }
 
@@ -141,5 +175,9 @@ class DetailsCustomerActivity : DaggerAppCompatActivity() {
             newCalendar[Calendar.DAY_OF_MONTH]
         )
         datePickerDialog!!.show()
+    }
+
+    private fun changeButton(btn: Button, drawable: Int) {
+        btn.setBackgroundResource(drawable)
     }
 }

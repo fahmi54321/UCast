@@ -47,4 +47,7 @@
     <string name="masuk">Masuk</string>
     <string name="belum_punya">Belum Punya Akun?<font color="#ffff0000">, Daftar Disini</font></string>
     <string name="atau">Atau</string>
+    <string name="everyweek">Setiap Minggu (08.00 WIB)</string>
+    <string name="everimonth">Setiap Minggu (08.00 WIB)</string>
+    <string name="everyyear">Setiap Tahun (08.00 WIB)</string>
 </resources>

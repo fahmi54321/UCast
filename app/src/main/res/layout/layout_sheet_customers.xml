@@ -38,37 +38,41 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="20dp">
-            <RadioGroup
+            <LinearLayout
                 android:id="@+id/rgSchedule"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RadioButton
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <CheckBox
                     android:id="@+id/rbEveryDay"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="@string/everyday"
-                    android:background="@drawable/bg_item_list_customers"></RadioButton>
-                <RadioButton
+                    android:background="@drawable/bg_item_list_customers"></CheckBox>
+                <CheckBox
+                    android:id="@+id/rbEveryWeek"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/everyday"
-                    android:background="@drawable/bg_item_list_customers"></RadioButton>
-                <RadioButton
+                    android:text="@string/everyweek"
+                    android:background="@drawable/bg_item_list_customers"></CheckBox>
+                <CheckBox
+                    android:id="@+id/rbEveryMonth"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/everyday"
-                    android:background="@drawable/bg_item_list_customers"></RadioButton>
-                <RadioButton
+                    android:text="@string/everimonth"
+                    android:background="@drawable/bg_item_list_customers"></CheckBox>
+                <CheckBox
+                    android:id="@+id/rbEveryYear"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="@string/everyday"
-                    android:background="@drawable/bg_item_list_customers"></RadioButton>
+                    android:text="@string/everyyear"
+                    android:background="@drawable/bg_item_list_customers"></CheckBox>
 
 
-            </RadioGroup>
+            </LinearLayout>
             <TextView
                 android:id="@+id/txtCustom"
                 android:layout_width="match_parent"
@@ -111,8 +115,8 @@
                 android:id="@+id/btnBuat"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                style="@style/Button.primary"
-                android:background="@drawable/btn_send"
+                style="@style/Button.secondary"
+                android:background="@drawable/btn_schedule"
                 android:layout_width="110dp"
                 android:layout_height="45dp"
                 android:text="@string/buat" />
