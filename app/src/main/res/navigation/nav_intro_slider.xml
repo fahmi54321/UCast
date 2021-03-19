@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_intro_slider"
+    app:startDestination="@id/introSliderFragment">
+
+    <fragment
+        android:id="@+id/introSliderFragment"
+        android:name="com.android.ucast.View.IntroSlider.IntroSliderFragment"
+        android:label="fragment_intro_slider"
+        tools:layout="@layout/fragment_intro_slider" >
+        <action
+            android:id="@+id/action_introSliderFragment_to_introSlider1Fragment"
+            app:destination="@id/introSlider1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/introSlider2Fragment"
+        android:name="com.android.ucast.View.IntroSlider.IntroSlider2Fragment"
+        android:label="fragment_intro_slider2"
+        tools:layout="@layout/fragment_intro_slider2" >
+        <action
+            android:id="@+id/action_introSlider2Fragment_to_introSliderFragment"
+            app:destination="@id/introSlider1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/introSlider1Fragment"
+        android:name="com.android.ucast.View.IntroSlider.IntroSlider1Fragment"
+        android:label="fragment_intro_slider1"
+        tools:layout="@layout/fragment_intro_slider1" >
+        <action
+            android:id="@+id/action_introSlider1Fragment_to_introSlider2Fragment"
+            app:destination="@id/introSlider2Fragment" />
+        <action
+            android:id="@+id/action_introSlider1Fragment_to_introSliderFragment"
+            app:destination="@id/introSliderFragment" />
+    </fragment>
+</navigation>

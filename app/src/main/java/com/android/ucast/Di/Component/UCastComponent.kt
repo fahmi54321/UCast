@@ -19,7 +19,7 @@ import javax.inject.Singleton
         ActivityBuilder::class,
         UCastModule::class,
         ConfigNetwork::class,
-        ViewModelProviderFactoryModule::class,
+        ViewModelProviderFactoryModule::class
     ]
 )
 interface UCastComponent : AndroidInjector<UCastApp> {

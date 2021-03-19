@@ -58,6 +58,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.24'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     kapt 'com.google.dagger:dagger-compiler:2.24'
     kapt 'com.google.dagger:dagger-android-processor:2.24'
     implementation 'com.google.code.findbugs:jsr305:3.0.2'

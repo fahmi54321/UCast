@@ -5,18 +5,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.android.ucast.R
+import com.android.ucast.Session.SessionManager
+import com.android.ucast.View.HomeActivity
 import com.android.ucast.View.IntroSlider.IntroSliderActivity
+import com.android.ucast.View.loginpage.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+        var sessionManager = SessionManager(this)
 
         //Splash Screen
         Handler().postDelayed(Runnable {
-            intent = Intent(this, IntroSliderActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (sessionManager.login ?: true) {
+                intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else {
+                intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }, 3000)
     }
 }

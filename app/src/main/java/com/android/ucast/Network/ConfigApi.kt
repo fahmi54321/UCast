@@ -1,9 +1,10 @@
 package com.android.ucast.Network
 
 import com.android.ucast.Model.ResponseData
+import com.android.ucast.Model.ResponseLogin
 import io.reactivex.rxjava3.core.Flowable
-import retrofit2.http.GET
-import retrofit2.http.Query
+import io.reactivex.rxjava3.core.Single
+import retrofit2.http.*
 
 interface ConfigApi {
     @GET("v1/players")
@@ -11,4 +12,12 @@ interface ConfigApi {
         @Query("page") page: Int,
         @Query("per_page") per_page: Int
     ): ResponseData
+
+    @FormUrlEncoded
+    @POST("api_login")
+    fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Flowable<ResponseLogin>
+
 }
