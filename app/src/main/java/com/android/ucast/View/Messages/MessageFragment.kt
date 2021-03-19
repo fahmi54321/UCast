@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.ucast.Adapter.MessagesAdapter
 import com.android.ucast.Model.Messages
 import com.android.ucast.databinding.FragmentMessageBinding
-import com.android.ucast.databinding.LayoutSheetMessagesBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.layout_sheet_messages.*
 
@@ -41,7 +40,7 @@ class MessageFragment : Fragment() {
             edtTulisPesan.setHint("Tulis Pesan")
             sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
-        txtAddMessages.setOnClickListener {
+        txtSukses.setOnClickListener {
             sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 

@@ -16,17 +16,17 @@ abstract class ActivityBuilder {
 
     @Presentation
     @ContributesAndroidInjector(
-        modules = [
-            UCastModule::class
-        ]
+            modules = [
+                UCastModule::class
+            ]
     )
     abstract fun constributeDetailsCustomers(): DetailsCustomerActivity
 
     @Presentation
     @ContributesAndroidInjector(
-        modules = [
-            ViewModelProviderFactoryModule::class
-        ]
+            modules = [
+                ViewModelProviderFactoryModule::class
+            ]
     )
     abstract fun contributeShedule(): ScheduleFragment
 
@@ -36,16 +36,7 @@ abstract class ActivityBuilder {
                 ViewModelProviderFactoryModule::class
             ]
     )
-    abstract fun contributeCustomer():ListCostumerFragment
-
-//    @Presentation
-//    @ContributesAndroidInjector(
-//            modules = [
-//                ViewModelProviderFactoryModule::class
-//            ]
-//    )
-
-
+    abstract fun contributeCustomer(): ListCostumerFragment
 
 
 }

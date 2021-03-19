@@ -6,37 +6,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".View.Customers.ListCostumerFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            style="@style/TextView.poppinsboldBlue1_18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/list_customer"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            style="@style/TextView.poppinsboldBlue1_18sp"></TextView>
+            android:text="@string/list_customer"></TextView>
+
         <CheckBox
             android:id="@+id/chkChoseAll"
-            android:layout_marginRight="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"></CheckBox>
+            android:layout_marginRight="20dp"></CheckBox>
+
         <TextView
-            android:layout_toLeftOf="@id/chkChoseAll"
+            style="@style/TextView.poppinsnormalBlue1_14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/chose_all"
-            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
-            style="@style/TextView.poppinsnormalBlue1_14sp"></TextView>
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/chkChoseAll"
+            android:text="@string/chose_all"></TextView>
     </RelativeLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_customers"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        tools:listitem="@layout/item_customers"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="20dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_customers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_customers"></androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_lanjut"
+            android:layout_width="100dp"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:text="@string/lanjut"
+            android:background="@drawable/btn_schedule"
+            style="@style/Button.secondary"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
 </LinearLayout>

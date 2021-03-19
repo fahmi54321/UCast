@@ -2,6 +2,7 @@ package com.android.ucast.Adapter.Customers
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ class ListCustomersAdapter(
 ) : PagingDataAdapter<com.android.ucast.Model.Customers.DataItem, ListCustomersAdapter.CustomersViewHolder>(playerDiffUtilCustomers()) {
 
     var data : ArrayList<DataItem?> = ArrayList()
+
 
     class playerDiffUtilCustomers : DiffUtil.ItemCallback<com.android.ucast.Model.Customers.DataItem>() {
         override fun areItemsTheSame(oldItem: com.android.ucast.Model.Customers.DataItem, newItem: com.android.ucast.Model.Customers.DataItem): Boolean {
@@ -26,6 +28,7 @@ class ListCustomersAdapter(
     }
 
     class CustomersViewHolder(var binding: ItemCustomersBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: com.android.ucast.Model.Customers.DataItem?) {
             binding.txtNama.text = item?.name
             binding.txtNoHp.text = item?.noHp
@@ -39,9 +42,6 @@ class ListCustomersAdapter(
         holder.binding.chkChose.setOnClickListener {
             onClick.add(item,holder)
         }
-        holder.itemView.setOnClickListener {
-            onClick.data(data)
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomersViewHolder {
@@ -51,7 +51,6 @@ class ListCustomersAdapter(
 
     interface onCliclistener {
         fun add(data:DataItem?,holder: CustomersViewHolder)
-        fun data(data:ArrayList<DataItem?>)
     }
 
 }

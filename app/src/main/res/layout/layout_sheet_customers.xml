@@ -25,7 +25,7 @@
             app:cardCornerRadius="5dp"
             app:cardBackgroundColor="@color/grey1"></androidx.cardview.widget.CardView>
         <TextView
-            android:id="@+id/txtAddMessages"
+            android:id="@+id/txtSchedule"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
@@ -39,6 +39,7 @@
             android:orientation="vertical"
             android:layout_margin="20dp">
             <RadioGroup
+                android:id="@+id/rgSchedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RadioButton
@@ -66,18 +67,18 @@
                     android:text="@string/everyday"
                     android:background="@drawable/bg_item_list_customers"></RadioButton>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/custom"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    style="@style/TextView.poppinsboldBlack_18sp"/>
-
 
             </RadioGroup>
+            <TextView
+                android:id="@+id/txtCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/custom"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                style="@style/TextView.poppinsboldBlack_18sp"/>
             <RelativeLayout
+                android:id="@+id/relativeAturTanggal"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -107,7 +108,7 @@
             </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSend"
+                android:id="@+id/btnBuat"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 style="@style/Button.primary"

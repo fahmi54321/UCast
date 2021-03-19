@@ -14,13 +14,13 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [
-        AndroidSupportInjectionModule::class,
-        ActivityBuilder::class,
-        UCastModule::class,
-        ConfigNetwork::class,
-        ViewModelProviderFactoryModule::class,
-    ]
+        modules = [
+            AndroidSupportInjectionModule::class,
+            ActivityBuilder::class,
+            UCastModule::class,
+            ConfigNetwork::class,
+            ViewModelProviderFactoryModule::class
+        ]
 )
 interface UCastComponent : AndroidInjector<UCastApp> {
     @Component.Builder

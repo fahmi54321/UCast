@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.android.ucast.Adapter.Customers.ListCustomersAdapter
 import com.android.ucast.Adapter.DataLoadStateAdapter
 import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
 import com.android.ucast.Model.Customers.DataItem
+import com.android.ucast.R
 import com.android.ucast.ViewModel.ViewModelUCase
 import com.android.ucast.databinding.FragmentListCostumerBinding
 import dagger.android.support.DaggerFragment
@@ -23,6 +26,12 @@ class ListCostumerFragment : DaggerFragment() {
 
     lateinit var binding: FragmentListCostumerBinding
     private var item: ArrayList<DataItem?> = ArrayList()
+
+    // deklarasi animasi
+    lateinit var top_to_bottom : Animation
+    lateinit var bottom_to_top : Animation
+    lateinit var left_to_right : Animation
+    lateinit var right_to_left : Animation
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -41,8 +50,12 @@ class ListCostumerFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this, providerFactory).get(ViewModelUCase::class.java)
+        initAnimasi()
 
+        binding.rvCustomers.startAnimation(left_to_right)
+        binding.btnLanjut.startAnimation(right_to_left)
+
+        viewModel = ViewModelProvider(this, providerFactory).get(ViewModelUCase::class.java)
         adapter = ListCustomersAdapter(object : ListCustomersAdapter.onCliclistener {
             override fun add(data: DataItem?, holder: ListCustomersAdapter.CustomersViewHolder) {
                 when(holder.binding.chkChose.isChecked){
@@ -50,17 +63,9 @@ class ListCostumerFragment : DaggerFragment() {
                     false -> item.remove(data)
                 }
             }
-
-            override fun data(data: ArrayList<DataItem?>) {
-                val intent = Intent(activity,DetailsCustomerActivity::class.java)
-                intent.putParcelableArrayListExtra("data",item)
-                startActivity(intent)
-            }
-
-
         })
 
-        binding.chkChoseAll.setOnClickListener {
+        binding.btnLanjut.setOnClickListener {
             val intent = Intent(activity,DetailsCustomerActivity::class.java)
             intent.putParcelableArrayListExtra("data",item)
             startActivity(intent)
@@ -69,6 +74,13 @@ class ListCostumerFragment : DaggerFragment() {
 
         setupAdapter()
         startJob()
+    }
+
+    private fun initAnimasi() {
+        top_to_bottom = AnimationUtils.loadAnimation(context, R.anim.top_to_bottom)
+        bottom_to_top = AnimationUtils.loadAnimation(context, R.anim.bottom_to_top)
+        left_to_right = AnimationUtils.loadAnimation(context, R.anim.left_to_right)
+        right_to_left = AnimationUtils.loadAnimation(context, R.anim.right_to_left)
     }
 
     private fun setupAdapter() {
