@@ -1,20 +1,15 @@
 package com.android.ucast.Di.Module
 
-import android.view.View
 import com.android.ucast.DataSource.DataSource
+import com.android.ucast.DataSource.DataSourceMessage
 import com.android.ucast.Network.ConfigApi
 import com.android.ucast.Repository.Repository
-import com.android.ucast.View.Customers.DetailsCustomerActivity
-import com.android.ucast.View.Messages.MessageFragment
 import com.android.ucast.ViewModel.ViewModelUCase
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Singleton
 
 @Module
 abstract class UCastModule {
@@ -41,5 +36,9 @@ abstract class UCastModule {
         @JvmStatic
         @Provides
         fun profideSimpleDateFormat(): SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+
+        @JvmStatic
+        @Provides
+        fun profideDataMessage(api: ConfigApi):DataSourceMessage = DataSourceMessage(api)
     }
 }

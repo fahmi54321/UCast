@@ -40,6 +40,6 @@
             tools:listitem="@layout/item_messages"></androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-    <include
-        layout="@layout/layout_sheet_messages"></include>
+<!--    <include-->
+<!--        layout="@layout/layout_sheet_messages"></include>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

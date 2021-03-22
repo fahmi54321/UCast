@@ -5,16 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.ucast.Adapter.MessagesAdapter
+import com.android.ucast.Adapter.Schedule.DataLoadStateAdapter
+import com.android.ucast.Adapter.message.AdapterMessage
+import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
 import com.android.ucast.Model.Messages
+import com.android.ucast.ViewModel.ViewModelUCase
 import com.android.ucast.databinding.FragmentMessageBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.layout_sheet_messages.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MessageFragment : Fragment() {
+class MessageFragment : DaggerFragment() {
 
-    lateinit var sheetBehavior: BottomSheetBehavior<*>
+    lateinit var viewModel : ViewModelUCase
+    lateinit var adapterMessage: AdapterMessage
+    @Inject
+    lateinit var viewModelProviderFactory: ViewModelProviderFactory
+//    lateinit var sheetBehavior: BottomSheetBehavior<*>
     lateinit var binding: FragmentMessageBinding
 
     override fun onCreateView(
@@ -29,71 +43,58 @@ class MessageFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        sheetBehavior = BottomSheetBehavior.from(bottomsheett)
-        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(ViewModelUCase::class.java)
+        adapterMessage = AdapterMessage()
+        viewModel.setMessage()
+        startAdapter()
+        startJob()
 
-        binding.addMessages.setOnClickListener {
-            btnMessage.text = "Tambah"
-            edtSubjek.setText("")
-            edtTulisPesan.setText("")
-            edtSubjek.setHint("Subjek")
-            edtTulisPesan.setHint("Tulis Pesan")
-            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-        txtAddMessages.setOnClickListener {
-            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-        var message = listOf(
-                Messages(
-                        "Pesan 1",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-                Messages(
-                        "Pesan 2",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-                Messages(
-                        "Pesan 3",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-                Messages(
-                        "Pesan 4",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-                Messages(
-                        "Pesan 5",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-                Messages(
-                        "Pesan 6",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-                Messages(
-                        "Pesan 7",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                ),
-        )
+//        sheetBehavior = BottomSheetBehavior.from(bottomsheett)
+//        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        var messagesAdapter = MessagesAdapter(message, object : MessagesAdapter.onClickListener {
-            override fun details(item: Messages) {
-                showBottomSheet(item)
-            }
+//        binding.addMessages.setOnClickListener {
+//            btnMessage.text = "Tambah"
+//            edtSubjek.setText("")
+//            edtTulisPesan.setText("")
+//            edtSubjek.setHint("Subjek")
+//            edtTulisPesan.setHint("Tulis Pesan")
+//            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        }
+//        txtAddMessages.setOnClickListener {
+//            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        }
 
-        })
 
+    }
+
+    private fun startJob() {
+      lifecycleScope.launch {
+          viewModel.getMessage()?.collect {
+              adapterMessage.submitData(it)
+          }
+      }
+    }
+
+    private fun startAdapter() {
         binding.rvMessages.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL, false
-            )
+            layoutManager = LinearLayoutManager(context)
+
         }
-        binding.rvMessages.adapter = messagesAdapter
+        binding.rvMessages.adapter = adapterMessage.withLoadStateFooter(
+                footer = DataLoadStateAdapter() {
+                    retry()
+                }
+        )
     }
 
-    private fun showBottomSheet(item: Messages) {
-        sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        edtSubjek.setText(item.title)
-        edtTulisPesan.setText(item.content)
-        btnMessage.text = "Edit"
+    private fun retry() {
+        adapterMessage.retry()
     }
+
+//    private fun showBottomSheet(item: Messages) {
+//        sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//        edtSubjek.setText(item.judul)
+//        edtTulisPesan.setText(item.isi)
+//        btnMessage.text = "Edit"
+//    }
 }

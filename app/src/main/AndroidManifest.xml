@@ -14,11 +14,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.UCast">
         <activity android:name=".View.loginpage.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- IntroSlider Activity -->
@@ -34,7 +30,11 @@
 
         </activity>
         <activity android:name=".View.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".View.MainActivity" />
     </application>
