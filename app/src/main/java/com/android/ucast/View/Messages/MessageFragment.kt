@@ -5,21 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.ucast.Adapter.DataLoadStateAdapter
+import com.android.ucast.Adapter.Messages.ListMessagesAdapter
 import com.android.ucast.Adapter.MessagesAdapter
+import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
 import com.android.ucast.Model.Messages
+import com.android.ucast.ViewModel.ViewModelUCase
 import com.android.ucast.databinding.FragmentMessageBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.layout_sheet_messages.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MessageFragment : Fragment() {
+class MessageFragment : DaggerFragment() {
 
     lateinit var sheetBehavior: BottomSheetBehavior<*>
     lateinit var binding: FragmentMessageBinding
 
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+    private var adapter: ListMessagesAdapter? = null
+    lateinit var viewModel: ViewModelUCase
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMessageBinding.inflate(inflater, container, false)
@@ -31,6 +46,9 @@ class MessageFragment : Fragment() {
 
         sheetBehavior = BottomSheetBehavior.from(bottomsheett)
         sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        viewModel = ViewModelProvider(this, providerFactory).get(ViewModelUCase::class.java)
+        adapter = ListMessagesAdapter()
 
         binding.addMessages.setOnClickListener {
             btnMessage.text = "Tambah"
@@ -44,51 +62,33 @@ class MessageFragment : Fragment() {
             sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        var message = listOf(
-            Messages(
-                "Pesan 1",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-            Messages(
-                "Pesan 2",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-            Messages(
-                "Pesan 3",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-            Messages(
-                "Pesan 4",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-            Messages(
-                "Pesan 5",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-            Messages(
-                "Pesan 6",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-            Messages(
-                "Pesan 7",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            ),
-        )
+        viewModel?.setDataMessages()
 
-        var messagesAdapter = MessagesAdapter(message, object : MessagesAdapter.onClickListener {
-            override fun details(item: Messages) {
-                showBottomSheet(item)
+        setupAdapter()
+        startJob()
+    }
+
+    private fun startJob() {
+        lifecycleScope.launch {
+            viewModel?.getDataMessages()?.collectLatest {
+                adapter?.submitData(it)
             }
-
-        })
-
-        binding.rvMessages.apply {
-            layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL, false
-            )
         }
-        binding.rvMessages.adapter = messagesAdapter
+    }
+
+    private fun setupAdapter() {
+        binding?.rvMessages?.apply {
+            layoutManager = LinearLayoutManager(activity)
+        }
+        binding?.rvMessages?.adapter = adapter?.withLoadStateFooter(
+                footer = DataLoadStateAdapter() {
+                    retry()
+                }
+        )
+    }
+
+    private fun retry() {
+        adapter?.retry()
     }
 
     private fun showBottomSheet(item: Messages) {

@@ -7,6 +7,7 @@ import com.android.ucast.Di.Scope.Presentation
 import com.android.ucast.Repository.Repository
 import com.android.ucast.View.Customers.DetailsCustomerActivity
 import com.android.ucast.View.Customers.ListCostumerFragment
+import com.android.ucast.View.Messages.MessageFragment
 import com.android.ucast.View.Schedule.ScheduleFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -37,6 +38,14 @@ abstract class ActivityBuilder {
             ]
     )
     abstract fun contributeCustomer(): ListCostumerFragment
+
+    @Presentation
+    @ContributesAndroidInjector(
+            modules = [
+                ViewModelProviderFactoryModule::class
+            ]
+    )
+    abstract fun contributeMessages(): MessageFragment
 
 
 }

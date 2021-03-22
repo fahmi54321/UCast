@@ -2,6 +2,7 @@ package com.android.ucast.Di.Module
 
 import com.android.ucast.DataSource.DataSource
 import com.android.ucast.DataSource.DataSourceCustomers
+import com.android.ucast.DataSource.DataSourceMessages
 import com.android.ucast.Network.ConfigApi
 import com.android.ucast.Repository.Repository
 import com.android.ucast.ViewModel.ViewModelUCase
@@ -23,6 +24,10 @@ abstract class UCastModule {
         @JvmStatic
         @Provides
         fun profideDataSource(api: ConfigApi):DataSource = DataSource(api)
+
+        @JvmStatic
+        @Provides
+        fun profideDataSourceMessages(api: ConfigApi):DataSourceMessages = DataSourceMessages(api)
 
         @JvmStatic
         @Provides

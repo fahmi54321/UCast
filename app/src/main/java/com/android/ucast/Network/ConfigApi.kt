@@ -1,6 +1,7 @@
 package com.android.ucast.Network
 
 import com.android.ucast.Model.Customers.ResponseCustomers
+import com.android.ucast.Model.Messagess.ResponseMessages
 import com.android.ucast.Model.ResponseData
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.GET
@@ -24,5 +25,11 @@ interface ConfigApi {
             @Query("page") page: Int,
             @Query("pageSize") per_page: Int
     ): Flowable<ResponseCustomers>
+
+    @GET("message/getMessage")
+    suspend fun getMessage(
+            @Query("page") page: Int,
+            @Query("pageSize") per_page: Int
+    ): ResponseMessages
 
 }
