@@ -24,6 +24,6 @@ interface ConfigApi {
     @GET("message/getMessage")
    suspend fun getMessage(
             @Query("page") page: Int,
-            @Query("pageSize") pageSize: Int
+            @Query("pageSize") per_page: Int
     ) : ResponseMessage
 }

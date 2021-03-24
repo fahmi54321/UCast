@@ -35,7 +35,7 @@
     <string name="u_cast">U CAST</string>
     <string name="lewati">Lewati</string>
     <string name="lanjut">Lanjut</string>
-    <string name="pesan">Mengirim Pesan Lebih Cepat</string>
+    <string name="MengirimPesan">Mengirim Pesan Lebih Cepat</string>
     <string name="loremipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hanya_dengan_beberapa_kali_klik">Hanya Dengan Beberapa Kali Klik</string>
@@ -47,4 +47,6 @@
     <string name="masuk">Masuk</string>
     <string name="belum_punya">Belum Punya Akun?<font color="#ffff0000">, Daftar Disini</font></string>
     <string name="atau">Atau</string>
+    <string name="pesan">Pesan</string>
+
 </resources>

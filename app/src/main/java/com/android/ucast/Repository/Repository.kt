@@ -11,7 +11,7 @@ import com.android.ucast.Model.ResponseLogin
 import com.android.ucast.Network.ConfigApi
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.intellij.lang.annotations.Flow
+
 
 class Repository(var api: ConfigApi) {
 
@@ -39,9 +39,9 @@ class Repository(var api: ConfigApi) {
     }
 
     fun getDataMessage(): kotlinx.coroutines.flow.Flow<PagingData<DataMessage>> {
-        val pagerMessage = Pager(PagingConfig(pageSize = 10)) {
+        val pager = Pager(PagingConfig(pageSize = 5)) {
             DataSourceMessage(api)
         }.flow
-        return pagerMessage
+        return pager
     }
 }

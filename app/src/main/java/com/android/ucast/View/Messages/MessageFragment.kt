@@ -1,7 +1,6 @@
 package com.android.ucast.View.Messages
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.ucast.Adapter.Schedule.DataLoadStateAdapter
 import com.android.ucast.Adapter.message.AdapterMessage
 import com.android.ucast.Di.ViewModel.ViewModelProviderFactory
+import com.android.ucast.Model.DataMessage
 import com.android.ucast.Model.Messages
+import com.android.ucast.R
 import com.android.ucast.ViewModel.ViewModelUCase
 import com.android.ucast.databinding.FragmentMessageBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.layout_sheet_messages.*
+import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
+import kotlinx.android.synthetic.main.layout_sheet_customers.*
+import kotlinx.android.synthetic.main.layout_sheet_customers.bottomsheett
+
+
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,53 +30,74 @@ import javax.inject.Inject
 
 class MessageFragment : DaggerFragment() {
 
-    lateinit var viewModel : ViewModelUCase
-    lateinit var adapterMessage: AdapterMessage
+    lateinit var binding: FragmentMessageBinding
+    lateinit var fragment: FragmentBottomSheet
+    lateinit var fragmentMessage: BottomSheetDetailMessage
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
-//    lateinit var sheetBehavior: BottomSheetBehavior<*>
-    lateinit var binding: FragmentMessageBinding
+    private  var adapterMessage: AdapterMessage? = null
+    lateinit var viewModel : ViewModelUCase
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentMessageBinding.inflate(inflater, container, false)
+
+        binding = FragmentMessageBinding.inflate(LayoutInflater.from(context), container, false)
         return binding.root
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(ViewModelUCase::class.java)
-        adapterMessage = AdapterMessage()
-        viewModel.setMessage()
-        startAdapter()
-        startJob()
+
+        //inisisialisasi dan memanggil fungsi state hidden
+        fragment = FragmentBottomSheet()
+        fragmentMessage = BottomSheetDetailMessage()
 
 //        sheetBehavior = BottomSheetBehavior.from(bottomsheett)
 //        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-//        binding.addMessages.setOnClickListener {
-//            btnMessage.text = "Tambah"
-//            edtSubjek.setText("")
-//            edtTulisPesan.setText("")
-//            edtSubjek.setHint("Subjek")
-//            edtTulisPesan.setHint("Tulis Pesan")
+        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(ViewModelUCase::class.java)
+        adapterMessage = AdapterMessage(object : AdapterMessage.DetailMessage{
+            override fun detailMessage(dataMessage: DataMessage) {
+                val bottomSheetDetailMessage = BottomSheetDetailMessage()
+                val bundle = Bundle()
+                bundle.putParcelable("", dataMessage)
+                bottomSheetDetailMessage.arguments = bundle
+                bottomSheetDetailMessage.show(childFragmentManager, fragment.tag)
+            }
+
+        })
+
+        binding.addMessages.setOnClickListener {
+           btnMessage?.text = "Tambah"
+            edtSubjek?.setText("")
+            edtTulisPesan?.setText("")
+            edtSubjek?.setHint("Subjek")
+            edtTulisPesan?.setHint("Tulis Pesan")
+
+            //memanggil fungsi expanded
+            fragment.show(childFragmentManager, fragment.tag)
 //            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//        }
-//        txtAddMessages.setOnClickListener {
-//            sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//        }
+        }
+
+
+
+        viewModel.setMessage()
+        startAdapter()
+        startJob()
 
 
     }
 
     private fun startJob() {
       lifecycleScope.launch {
-          viewModel.getMessage()?.collect {
-              adapterMessage.submitData(it)
+          viewModel.getMessage()?.collectLatest {
+              adapterMessage?.submitData(it)
           }
       }
     }
@@ -80,7 +107,7 @@ class MessageFragment : DaggerFragment() {
             layoutManager = LinearLayoutManager(context)
 
         }
-        binding.rvMessages.adapter = adapterMessage.withLoadStateFooter(
+        binding.rvMessages.adapter = adapterMessage?.withLoadStateFooter(
                 footer = DataLoadStateAdapter() {
                     retry()
                 }
@@ -88,13 +115,17 @@ class MessageFragment : DaggerFragment() {
     }
 
     private fun retry() {
-        adapterMessage.retry()
+        adapterMessage?.retry()
     }
 
-//    private fun showBottomSheet(item: Messages) {
+    private fun showBottomSheet(item: Messages) {
+        //memanggil fungsi expanded
+        fragment.show(childFragmentManager, fragment.tag)
 //        sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//        edtSubjek.setText(item.judul)
-//        edtTulisPesan.setText(item.isi)
-//        btnMessage.text = "Edit"
-//    }
+        edtSubjek?.setText(item.judul)
+        edtTulisPesan?.setText(item.isi)
+        btnMessage?.text = "Edit"
+    }
 }
+
+

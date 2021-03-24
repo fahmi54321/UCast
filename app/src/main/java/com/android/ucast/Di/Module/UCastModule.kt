@@ -40,5 +40,7 @@ abstract class UCastModule {
         @JvmStatic
         @Provides
         fun profideDataMessage(api: ConfigApi):DataSourceMessage = DataSourceMessage(api)
+
+
     }
 }
