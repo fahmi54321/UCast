@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/bottomsheett"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="20dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="60dp"
-    app:cardElevation="8dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="10dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="20dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    app:cardElevation="8dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".View.Messages.FragmentBottomSheet">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:layout_width="200dp"
             android:layout_height="8dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="5dp"
-            app:cardBackgroundColor="@color/grey1"></androidx.cardview.widget.CardView>
+            app:cardBackgroundColor="@color/grey1"
+            app:cardCornerRadius="5dp"></androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/txtAddMessages"
+            style="@style/TextView.poppinsboldBlack_18sp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="center"
             android:background="@color/white"
+            android:gravity="center"
             android:text="@string/add_messages"
-            style="@style/TextView.poppinsboldBlack_18sp"
             android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="20dp">
+            android:layout_margin="20dp"
+            android:orientation="vertical">
 
             <EditText
-                android:layout_marginTop="20dp"
                 android:id="@+id/edtSubjek"
+                style="@style/Edittext.primary"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_item_list_customers"
-                android:inputType="text"
                 android:hint="@string/subjek"
-                style="@style/Edittext.primary"/>
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/edtTulisPesan"
+                style="@style/Edittext.primary"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:gravity="top"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_item_list_customers"
-                android:inputType="textMultiLine"
+                android:gravity="top"
                 android:hint="@string/tulis_pesan"
-                style="@style/Edittext.primary"/>
+                android:inputType="textMultiLine" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnMessage"
-                android:layout_marginTop="20dp"
-                android:layout_width="100dp"
-                android:layout_gravity="right"
-                android:layout_height="wrap_content"
-                android:text="@string/buat"
                 style="@style/Button.secondary"
-                android:background="@drawable/btn_schedule"/>
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_schedule"
+                android:text="@string/buat" />
         </LinearLayout>
     </LinearLayout>
 
