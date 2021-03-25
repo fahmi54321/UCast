@@ -74,11 +74,11 @@ class MessageFragment : DaggerFragment() {
         })
 
         binding.addMessages.setOnClickListener {
-           btnMessage?.text = "Tambah"
-            edtSubjek?.setText("")
-            edtTulisPesan?.setText("")
-            edtSubjek?.setHint("Subjek")
-            edtTulisPesan?.setHint("Tulis Pesan")
+//           btnMessage?.text = "Tambah"
+//            edtSubjek?.setText("")
+//            edtTulisPesan?.setText("")
+//            edtSubjek?.setHint("Subjek")
+//            edtTulisPesan?.setHint("Tulis Pesan")
 
             //memanggil fungsi expanded
             fragment.show(childFragmentManager, fragment.tag)
@@ -122,9 +122,9 @@ class MessageFragment : DaggerFragment() {
         //memanggil fungsi expanded
         fragment.show(childFragmentManager, fragment.tag)
 //        sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        edtSubjek?.setText(item.judul)
-        edtTulisPesan?.setText(item.isi)
-        btnMessage?.text = "Edit"
+//        edtSubjek?.setText(item.judul)
+//        edtTulisPesan?.setText(item.isi)
+//        btnMessage?.text = "Edit"
     }
 }
 

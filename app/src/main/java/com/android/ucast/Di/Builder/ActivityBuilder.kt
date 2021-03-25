@@ -6,6 +6,8 @@ import com.android.ucast.Di.Module.ViewModelProviderFactoryModule
 import com.android.ucast.Di.Scope.Presentation
 import com.android.ucast.Repository.Repository
 import com.android.ucast.View.Customers.DetailsCustomerActivity
+import com.android.ucast.View.Messages.BottomSheetDetailMessage
+import com.android.ucast.View.Messages.FragmentBottomSheet
 import com.android.ucast.View.Messages.MessageFragment
 import com.android.ucast.View.Schedule.ScheduleFragment
 import com.android.ucast.View.loginpage.LoginActivity
@@ -48,6 +50,21 @@ abstract class ActivityBuilder {
     )
     abstract fun contributeMessage(): MessageFragment
 
+    @Presentation
+    @ContributesAndroidInjector(
+            modules = [
+                ViewModelProviderFactoryModule::class
+            ]
+    )
+    abstract fun contributeInsertMessage(): FragmentBottomSheet
+
+    @Presentation
+    @ContributesAndroidInjector(
+            modules = [
+                ViewModelProviderFactoryModule::class
+            ]
+    )
+    abstract fun contributeEditMessage(): BottomSheetDetailMessage
 
 
 }

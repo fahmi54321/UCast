@@ -6,15 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.android.ucast.Model.DataItem
-import com.android.ucast.Model.DataMessage
-import com.android.ucast.Model.ResponseLogin
+import com.android.ucast.Model.*
 import com.android.ucast.Repository.Repository
 import kotlinx.coroutines.flow.Flow
 
 class ViewModelUCase(var repository: Repository):ViewModel() {
+    //Login
     val isSuccess = MutableLiveData<ResponseLogin>()
     val isError = MutableLiveData<Throwable>()
+
+    //Insert
+    val successResponse = MutableLiveData<ResponseInsertMessage>()
 
     var responMessage: Flow<PagingData<DataMessage>>? = null
     var responPlayer: kotlinx.coroutines.flow.Flow<PagingData<DataItem>>? = null
@@ -42,6 +44,22 @@ class ViewModelUCase(var repository: Repository):ViewModel() {
     }
 
     fun getMessage() = responMessage
+
+    fun insertMessage(
+        title: String,
+        content: String,
+        userId: String
+    ){
+        repository.InsertMessage(title, content, userId, {
+            successResponse.value = it
+        }, {
+            isError.value = it
+        })
+    }
+
+    fun successResponse(): LiveData<ResponseInsertMessage> {
+        return successResponse
+    }
 
     fun isSuccess(): LiveData<ResponseLogin> {
         return isSuccess

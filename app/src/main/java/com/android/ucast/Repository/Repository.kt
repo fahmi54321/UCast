@@ -7,10 +7,12 @@ import com.android.ucast.DataSource.DataSource
 import com.android.ucast.DataSource.DataSourceMessage
 import com.android.ucast.Model.DataItem
 import com.android.ucast.Model.DataMessage
+import com.android.ucast.Model.ResponseInsertMessage
 import com.android.ucast.Model.ResponseLogin
 import com.android.ucast.Network.ConfigApi
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
 
 
 class Repository(var api: ConfigApi) {
@@ -44,4 +46,23 @@ class Repository(var api: ConfigApi) {
         }.flow
         return pager
     }
+
+    fun InsertMessage(
+        title: String,
+        content: String,
+        userId: String,
+        successResponse: (ResponseInsertMessage)-> Unit,
+        errorResponse: (Throwable) -> Unit
+    ){
+        api.InsertMessage(title, content, userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    successResponse(it)
+                }, {
+                    errorResponse(it)
+                })
+    }
+
+
 }

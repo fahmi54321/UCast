@@ -1,6 +1,7 @@
 package com.android.ucast.Network
 
 import com.android.ucast.Model.ResponseData
+import com.android.ucast.Model.ResponseInsertMessage
 import com.android.ucast.Model.ResponseLogin
 import com.android.ucast.Model.ResponseMessage
 import io.reactivex.rxjava3.core.Flowable
@@ -26,4 +27,12 @@ interface ConfigApi {
             @Query("page") page: Int,
             @Query("pageSize") per_page: Int
     ) : ResponseMessage
+
+   @FormUrlEncoded
+   @POST("message/insertMessage")
+   fun InsertMessage(
+           @Field("title") title: String,
+           @Field("content") content: String,
+           @Field("userId") userId: String
+   ): Flowable<ResponseInsertMessage>
 }

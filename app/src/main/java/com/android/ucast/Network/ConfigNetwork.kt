@@ -3,6 +3,8 @@ package com.android.ucast.Network
 
 import com.android.ucast.BuildConfig
 import com.android.ucast.Constants.Constants
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -33,6 +35,8 @@ class ConfigNetwork {
             addInterceptor(interceptor)
         }.build()
     }
+
+
 
     @Provides
     @Singleton
