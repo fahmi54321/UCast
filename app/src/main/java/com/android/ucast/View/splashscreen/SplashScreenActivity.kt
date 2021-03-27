@@ -8,6 +8,7 @@ import com.android.ucast.R
 import com.android.ucast.Session.SessionManager
 import com.android.ucast.View.HomeActivity
 import com.android.ucast.View.IntroSlider.IntroSliderActivity
+import com.android.ucast.View.IntroSlider.IntroSliderFragment
 import com.android.ucast.View.loginpage.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 finish()
             }
             else {
-                intent = Intent(this, LoginActivity::class.java)
+                intent = Intent(this, IntroSliderActivity::class.java)
                 startActivity(intent)
                 finish()
             }

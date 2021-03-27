@@ -13,7 +13,7 @@ import com.android.ucast.R
 import com.android.ucast.databinding.FragmentIntroSliderBinding
 
 
-class IntroSliderFragment : Fragment() {
+class IntroSliderFragment : Fragment(), View.OnClickListener {
     lateinit var binding: FragmentIntroSliderBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,20 +21,26 @@ class IntroSliderFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding = FragmentIntroSliderBinding.inflate(inflater,container, false)
+        binding = FragmentIntroSliderBinding.inflate(LayoutInflater.from(context),container, false)
 //        return inflater.inflate(R.layout.fragment_intro_slider, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val introSlider1Fragment = IntroSlider1Fragment()
-       binding.btnLanjut.setOnClickListener {
-           fragmentManager?.beginTransaction()?.apply {
-              add(R.id.container, introSlider1Fragment, IntroSlider1Fragment::class.java.simpleName)
-                  .addToBackStack(null)
-                  .commit()
-           }
+       binding.btnLanjut.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.btn_lanjut) {
+            val introSlider1Fragment = IntroSlider1Fragment()
+            val fragmentManager = fragmentManager
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.frame_container, introSlider1Fragment, IntroSlider1Fragment::class.java.simpleName )
+                addToBackStack(null)
+                commit()      
+            }
+
         }
     }
 

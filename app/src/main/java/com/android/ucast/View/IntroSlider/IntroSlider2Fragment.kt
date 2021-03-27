@@ -1,22 +1,36 @@
 package com.android.ucast.View.IntroSlider
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.ucast.R
+import com.android.ucast.View.loginpage.LoginActivity
+import com.android.ucast.databinding.FragmentIntroSlider2Binding
 
 
 class IntroSlider2Fragment : Fragment() {
 
-
+    lateinit var binding: FragmentIntroSlider2Binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro_slider2, container, false)
+        binding = FragmentIntroSlider2Binding.inflate(LayoutInflater.from(context), container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.lanjut2.setOnClickListener {
+           val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+    }
+
+
     }
 
 

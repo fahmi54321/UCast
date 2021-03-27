@@ -1,9 +1,6 @@
 package com.android.ucast.Network
 
-import com.android.ucast.Model.ResponseData
-import com.android.ucast.Model.ResponseInsertMessage
-import com.android.ucast.Model.ResponseLogin
-import com.android.ucast.Model.ResponseMessage
+import com.android.ucast.Model.*
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.*
@@ -34,5 +31,20 @@ interface ConfigApi {
            @Field("title") title: String,
            @Field("content") content: String,
            @Field("userId") userId: String
-   ): Flowable<ResponseInsertMessage>
+   ): Single<ResponseInsertMessage>
+
+   @FormUrlEncoded
+   @POST("message/deleteMessage")
+   fun deleteMessage(
+           @Field("id_message") id_message: Int
+   ): Single<ResponseDeleteMessage>
+
+   @FormUrlEncoded
+   @POST("message/updateMessage")
+   fun updateMessage(
+           @Field("title") title: String,
+           @Field("content") content: String,
+           @Field("userId") userId: String,
+           @Field("id_message") id_message: Int
+   ): Single<ResponseUpdateMessage>
 }

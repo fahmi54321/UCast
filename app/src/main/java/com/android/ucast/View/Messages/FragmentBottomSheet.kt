@@ -32,6 +32,7 @@ class FragmentBottomSheet() : BottomSheetDialogFragment(){
 //    lateinit var factory : ViewModelProvider.Factory
     lateinit var viewModelProvider: ViewModelProviderFactory
     var userId: String? = null
+
     //Untuk Inject ViewModelProviderFactory
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)

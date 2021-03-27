@@ -7,20 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import com.android.ucast.R
+import com.android.ucast.databinding.FragmentIntroSlider1Binding
 
-class IntroSlider1Fragment : Fragment() {
-
-
+class IntroSlider1Fragment : Fragment(), View.OnClickListener {
+    lateinit var binding : FragmentIntroSlider1Binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro_slider1, container, false)
+       binding = FragmentIntroSlider1Binding.inflate(LayoutInflater.from(context), container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnlanjut1.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.btnlanjut1){
+            val introSlider2Fragment = IntroSlider2Fragment()
+            val fragmentManager = fragmentManager
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.frame_container, introSlider2Fragment, IntroSlider2Fragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 
 

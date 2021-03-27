@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/intro1"
     android:layout_height="match_parent"
     tools:context=".View.IntroSlider.IntroSlider1Fragment">
 
@@ -60,6 +61,7 @@
             app:layout_constraintTop_toBottomOf="@id/lorem1" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnlanjut1"
             android:layout_width="110dp"
             android:layout_height="45dp"
             android:layout_marginStart="190dp"

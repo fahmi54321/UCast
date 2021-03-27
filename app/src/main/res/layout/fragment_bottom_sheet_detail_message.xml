@@ -63,15 +63,36 @@
                 android:hint="@string/tulis_pesan"
                 android:inputType="textImeMultiLine" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnEdit"
-                style="@style/Button.secondary"
-                android:layout_width="100dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/btn_schedule"
-                android:text="@string/edit" />
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btndelete"
+                    style="@style/Button.secondary"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/btn_detail_message"
+                    android:text="@string/delete" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEdit"
+                    style="@style/Button.secondary"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_schedule"
+                    android:text="@string/edit" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>

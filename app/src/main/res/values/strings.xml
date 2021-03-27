@@ -48,5 +48,6 @@
     <string name="belum_punya">Belum Punya Akun?<font color="#ffff0000">, Daftar Disini</font></string>
     <string name="atau">Atau</string>
     <string name="pesan">Pesan</string>
+    <string name="delete">Delete</string>
 
 </resources>

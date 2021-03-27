@@ -81,19 +81,16 @@ class LoginActivity : DaggerAppCompatActivity() {
     }
 
     private fun responseSuccess(it: ResponseLogin?) {
-        if (it?.status == true) {
-            //Isi Shared Preference
-             val session = SessionManager(this)
-            val data = it.user
-            session.email = data?.email?.get(0).toString()
-            session.id = data?.id
-            session.name = data?.name?.get(0).toString()
-            session.image = data?.imgProfile
-            session.login = true
-            Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
-            intent = Intent(applicationContext, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        val session = SessionManager(this)
+        val data = it?.user
+        session.email = data?.email?.get(0).toString()
+        session.id = data?.id
+        session.name = data?.name?.get(0).toString()
+        session.image = data?.imgProfile
+        session.login = true
+        Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
+        intent = Intent(applicationContext, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
